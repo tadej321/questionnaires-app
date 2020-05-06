@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {AuthDataModel} from '../models/auth-data.model';
+import {AuthDataModel} from './models/auth-data.model';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 
-const BACKEND_URL = environment.apiUrl + '/user';
+const BACKEND_URL = environment.backendApiUrl + '/user';
 
 interface UserCredentials {
   userId: string;
