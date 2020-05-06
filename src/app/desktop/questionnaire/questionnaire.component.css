@@ -1,0 +1,24 @@
+@media (max-width: 1400px) {
+  #helper-label {
+    display: none;
+  }
+}
+
+#helper-label {
+  width: 70%;
+  padding-top: 30px
+}
+
+label {
+  border-bottom: 1px solid #D3D3D3;
+  color: #D0D0D0;
+  height: 80%;
+}
+.tab-label:hover {
+  border-bottom: 1px solid #0077e6;
+  color: #0077e6
+}
+
+#tab-router-container {
+  margin-top: 2%;
+}

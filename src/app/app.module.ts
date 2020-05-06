@@ -6,6 +6,7 @@ import {AppRoutingModule} from './app-routing.component';
 import {AuthGuard} from './authentication/auth-guard';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './authentication/auth-interceptor';
+
 @NgModule({
   declarations: [
     AppComponent

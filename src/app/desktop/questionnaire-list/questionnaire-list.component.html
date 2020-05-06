@@ -1,0 +1,27 @@
+<div class="col-sm-12" id="questionnaires-container">
+  <div class="col-sm-12" id="desktop-navigation-c">
+    <p>All Questionnaires</p>
+  </div>
+  <div id="questionnaires-list">
+    <table>
+      <tr *ngFor="let row of questionnaires|row:5">
+        <td class="content" *ngFor="let questionnaire of row">
+          <div *ngIf="questionnaires.indexOf(questionnaire) === 0" class="content">
+            <div class="table">
+              <button class="table-cell">
+                ADD
+              </button>
+            </div>
+          </div>
+          <div *ngIf="questionnaires.indexOf(questionnaire) > 0" class="content">
+            <div class="table">
+              <button (click)="redirect(questionnaire._id)" class="table-cell">
+                {{questionnaire.value}}
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

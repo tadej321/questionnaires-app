@@ -1,0 +1,48 @@
+#desktop-navigation-c {
+  border-bottom: 1px solid #D3D3D3;
+}
+
+p {
+  margin: 0;
+  color: #0077e6;
+}
+
+table {
+  width: 100%;
+  border-spacing: 25px;
+  border-collapse: separate;
+}
+
+td {
+  width:20%;
+  position:relative;
+}
+td:after{
+  content:'';
+  display:block;
+  margin-top:100%;
+}
+td .content {
+  border-radius: 15px;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background: #4da6ff;
+  text-align: center;
+}
+.table{
+  display:table;
+  height:100%;
+  width:100%;
+}
+.table-cell{
+  display:table-cell;
+  vertical-align:middle;
+  height:100%;
+  width:100%;
+  color: white;
+  background: transparent;
+  border: none;
+}

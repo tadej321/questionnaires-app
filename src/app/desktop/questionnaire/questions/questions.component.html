@@ -1,0 +1,17 @@
+<div id="questions-tlc" class="container-fluid">
+  <div id="title-input-c" class="col-sm-12">
+    <input id="title-input" type="text" placeholder="Enter title">
+  </div>
+  <div id="question-list-container" class="col-sm-12">
+    <input id="question-input" type="text" placeholder="Enter question">
+    <ul class="list-group p-0">
+      <li class="list-group-item" *ngFor="let question of questions">
+        <div class="question-container">
+          {{question.value}}
+        </div>
+        <button (click)="onRemoveQuestion(question._id)" class="remove-button">X</button>
+      </li>
+    </ul>
+    <button (click)="onAddQuestion()" id="add-button">+ ADD QUESTION</button>
+  </div>
+</div>

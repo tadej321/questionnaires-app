@@ -1,0 +1,32 @@
+#logout-button {
+  float: right;
+  display: inline;
+  background: transparent;
+  color: #0077e6;
+  border: none;
+  font-weight: bold;
+}
+
+#questionnaires-container {
+  height: 55vh;
+}
+
+h1 {
+  display: inline;
+}
+
+#desktop-tlc {
+  padding: 1%;
+}
+
+
+
+a {
+  color: black;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+#questionnaire-router-container {
+  margin-top: 1%;
+}
