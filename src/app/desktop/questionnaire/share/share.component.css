@@ -1,0 +1,20 @@
+#email-input {
+  border: 1px solid #0077e6;
+  height: 40px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 21px;
+  width: 300px;
+  background: #e6f0ff;
+  display: inline;
+  margin-right: 10px;
+}
+
+#share-button {
+  display: inline;
+  margin-bottom: 9px;
+}
+
+p {
+  font-size: 20px;
+}

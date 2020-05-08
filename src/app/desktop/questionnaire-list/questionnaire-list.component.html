@@ -1,23 +1,26 @@
 <div class="col-sm-12" id="questionnaires-container">
-  <div class="col-sm-12" id="desktop-navigation-c">
-    <p>All Questionnaires</p>
+  <div class="row justify-content-start" id="desktop-navigation-c">
+    <div class="col-sm-5">
+      <p>All Questionnaires</p>
+    </div>
+    <div class="col-sm-7">
+      <button (click)="onAddQuestionnaire()" id="add-q-button" class="btn btn-primary">ADD QUESTIONNAIRE</button>
+    </div>
   </div>
   <div id="questionnaires-list">
     <table>
-      <tr *ngFor="let row of questionnaires|row:5">
+      <tr *ngFor="let row of (questionnaires|async).questionnaires|row:5">
         <td class="content" *ngFor="let questionnaire of row">
-          <div *ngIf="questionnaires.indexOf(questionnaire) === 0" class="content">
+          <div class="content">
             <div class="table">
-              <button class="table-cell">
-                ADD
-              </button>
-            </div>
-          </div>
-          <div *ngIf="questionnaires.indexOf(questionnaire) > 0" class="content">
-            <div class="table">
-              <button (click)="redirect(questionnaire._id)" class="table-cell">
-                {{questionnaire.value}}
-              </button>
+              <div class="table-cell">
+                <button (click)="redirect(questionnaire.id)" class="open-button">
+                  {{questionnaire.title}}
+                </button>
+                <button (click)="onRemoveQuestionnaire(questionnaire.id)" class="remove-button">
+                  X
+                </button>
+              </div>
             </div>
           </div>
         </td>

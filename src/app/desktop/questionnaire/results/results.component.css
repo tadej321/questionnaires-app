@@ -1,0 +1,53 @@
+.stat-c {
+  background: #e6f7ff;
+  border-radius: 15px;
+  margin: 10px 0 10px 0;
+  padding: 0;
+}
+
+.question-stat-c {
+  padding: 20px;
+}
+
+.inline-stats {
+  display: inline-block;
+  margin: 25px 30px 15px 20px;
+}
+
+.label {
+  color: #0077e6;
+}
+.stat {
+  font-size: 45px;
+}
+
+.progress {
+  background: #e6f7ff;
+  margin: 10px 10px 15px 10px;
+  height: 26px;
+  position: relative;
+}
+.progress:before {
+  content: attr(data-label);
+  font-weight: bold;
+  font-size: 0.8em;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+  left: 0;
+  right: 0;
+}
+.progress .value {
+  background-color: #7cc4ff;
+  display: inline-block;
+  height: 100%;
+}
+
+.p-bar-label {
+  font-size: 20px;
+  margin: 0 10px 10px 0;
+}
+
+.p-bar {
+  border-radius: 5px;
+}

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import * as fromQuestionnaireList from '../store/reducers/questionnaire-list.reducer';
+import * as QuestionnaireActions from '../store/actions/questionnaire-list.actions';
 
 @Component({
   selector: 'app-desktop',
@@ -20,7 +23,10 @@ export class DesktopComponent implements OnInit {
     {_id: 'asd6a78s67y', value: 'question 8'},
     ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store<fromQuestionnaireList.AppState>
+    ) {}
 
   ngOnInit(): void {
     this.questionnaires.unshift({_id: '0', value: 'ADD'});
@@ -30,6 +36,7 @@ export class DesktopComponent implements OnInit {
   }
 
   redirect(): void {
+    this.store.dispatch(new QuestionnaireActions.StopEdit());
     this.router.navigate(['desktop/list']);
   }
 }

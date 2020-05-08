@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import * as QuestionnaireActions from '../../../store/actions/questionnaire-list.actions';
+import {Store} from '@ngrx/store';
+import {Questionnaire} from '../../../models/questionnaire.model';
+import {Router} from '@angular/router';
+import {QuestionnaireService} from '../questionnaire.service';
+import * as fromQuestionnaireList from '../../../store/reducers/questionnaire-list.reducer';
+import {Question} from '../../../models/question.model';
+
 
 @Component({
   selector: 'app-questions',
@@ -7,28 +15,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionsComponent implements OnInit {
 
-  public questions = [
-    {_id: 'd7as89d689as', value: 'Question 1'},
-    {_id: 'd7as89d68sds', value: 'Question 2'},
-    {_id: 'd7as89d68234', value: 'Question 3'},
-    {_id: 'd7as89d6sd31', value: 'Question 4'},
-    {_id: 'd7as89d68123', value: 'Question 5'},
-  ];
+  questionnaire: Questionnaire;
 
-  constructor() { }
+  public isAdmin = true;
+
+  constructor(
+    private store: Store<fromQuestionnaireList.AppState>,
+    private router: Router,
+    private questionnaireService: QuestionnaireService
+  ) { }
 
   ngOnInit(): void {
+    this.store.select('questionnaireList').subscribe(stateData => {
+      if (stateData.editedQuestionnaireId !== null) {
+        this.questionnaire = stateData.editedQuestionnaire;
+      } else {
+        this.router.navigate(['desktop/list']);
+      }
+    });
   }
 
   onAddQuestion() {
     const value = ((document.getElementById('question-input') as HTMLInputElement).value);
-    console.log(value);
     if (value !== '') {
-      this.questions.push({_id: value + 'as1', value: value.toString()});
+      const newQuestion = new Question(value, 0, 0, 0, 0, 0, value + 'Id');
+
+      this.store.dispatch(new QuestionnaireActions.AddQuestion(newQuestion));
     }
   }
 
-  onRemoveQuestion(id: string) {
 
+  onRemoveQuestion(id: string) {
+    this.store.dispatch(new QuestionnaireActions.RemoveQuestion(id));
   }
 }

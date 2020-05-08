@@ -1,17 +1,58 @@
 <div id="questions-tlc" class="container-fluid">
-  <div id="title-input-c" class="col-sm-12">
+  <ng-container *ngTemplateOutlet="isAdmin? adminView : userView">
+  </ng-container>
+</div>
+
+<ng-template #adminView>
+  <div id="title-input-c" class="row col-sm-12 justify-content-center">
+    <button id="publish-button" class="btn btn-primary">PUBLISH</button>
     <input id="title-input" type="text" placeholder="Enter title">
   </div>
+
   <div id="question-list-container" class="col-sm-12">
     <input id="question-input" type="text" placeholder="Enter question">
     <ul class="list-group p-0">
-      <li class="list-group-item" *ngFor="let question of questions">
+      <li class="list-group-item" *ngFor="let question of questionnaire.questions">
         <div class="question-container">
-          {{question.value}}
+          {{question.description}}
         </div>
-        <button (click)="onRemoveQuestion(question._id)" class="remove-button">X</button>
+        <button (click)="onRemoveQuestion(question.id)" class="remove-button">X</button>
       </li>
     </ul>
     <button (click)="onAddQuestion()" id="add-button">+ ADD QUESTION</button>
   </div>
-</div>
+</ng-template>
+
+<ng-template #userView class="test">
+  <div style="text-align: center">
+    <div class="col-sm-12">
+      <p>Questionnaire 1</p>
+    </div>
+
+    <div class="question-container col-sm-12">
+      <p class="q-tag">Question {{"1"}}</p>
+      <h4>Question description</h4>
+      <label class="radio-container">1
+        <input type="radio" checked="checked" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">2
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">3
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">4
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">5
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <button (click)="onAddQuestion()" id="submit-button" class="btn btn-primary">SUBMIT</button>
+  </div>
+</ng-template>

@@ -8,6 +8,7 @@ import {ShareComponent} from './questionnaire/share/share.component';
 import {ResultsComponent} from './questionnaire/results/results.component';
 import { RowPipe } from './questionnaire-list/row.pipe';
 import { QuestionnaireListComponent } from './questionnaire-list/questionnaire-list.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -23,7 +24,8 @@ import { QuestionnaireListComponent } from './questionnaire-list/questionnaire-l
   ],
   imports: [
     CommonModule,
-    DesktopRoutingModule
+    DesktopRoutingModule,
+    FormsModule
   ]
 })
 export class DesktopModule { }
