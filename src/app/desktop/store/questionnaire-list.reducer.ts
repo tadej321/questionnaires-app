@@ -1,10 +1,6 @@
 import {Questionnaire} from '../../models/questionnaire.model';
 import {Question} from '../../models/question.model';
-import * as QuestionnaireActions from '../actions/questionnaire-list.actions';
-
-export interface AppState {
-  questionnaireList: State;
-}
+import * as QuestionnaireActions from './questionnaire-list.actions';
 
 export interface State {
   questionnaires: Questionnaire[];
@@ -59,24 +55,6 @@ export function QuestionnaireListReducer(
       console.log(asda);
       return {...state, questionnaires: asda};
 
-    case QuestionnaireActions.ADD_QUESTION:
-      questionnaire = state.questionnaires.find(x => x.id === state.editedQuestionnaireId);
-
-      updatedQuestions = [... questionnaire.questions, action.payload];
-
-      updatedQuestionnaire = {... questionnaire};
-      updatedQuestionnaire.questions = updatedQuestions;
-
-      updatedQuestionnaires = [... state.questionnaires];
-      index = updatedQuestionnaires.indexOf(questionnaire);
-      updatedQuestionnaires[index] = updatedQuestionnaire;
-
-      return {
-        ...state,
-        questionnaires: updatedQuestionnaires,
-        editedQuestionnaire: updatedQuestionnaire
-      };
-
     case QuestionnaireActions.REMOVE_QUESTION:
       questionnaire = state.questionnaires.find(x => x.id === state.editedQuestionnaireId);
 
@@ -99,17 +77,16 @@ export function QuestionnaireListReducer(
 
     case QuestionnaireActions.UPDATE_QUESTIONNAIRE:
       questionnaire = state.questionnaires.find(x => x.id === state.editedQuestionnaireId);
-      updatedQuestionnaire = {
-        ...questionnaire,
-        ...action.payload
-      };
+      updatedQuestionnaire = {...action.payload};
+
       updatedQuestionnaires = [...state.questionnaires];
-      index = updatedQuestionnaires.indexOf(action.payload);
+      index = updatedQuestionnaires.indexOf(questionnaire);
       updatedQuestionnaires[index] = updatedQuestionnaire;
 
       return {
         ...state,
-        questionnaires: updatedQuestionnaires
+        questionnaires: updatedQuestionnaires,
+        editedQuestionnaire: updatedQuestionnaire
       };
 
     case QuestionnaireActions.DELETE_QUESTIONNAIRE:

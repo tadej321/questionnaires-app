@@ -1,7 +1,9 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {AuthService} from '../auth.service';
 import {Subscription} from 'rxjs';
 import {NgForm, NgModel} from '@angular/forms';
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
+import {Store} from '@ngrx/store';
 
 @Component({
   templateUrl: './login.component.html',
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChildren('labelContainer') labelContainer: QueryList<ElementRef>;
 
-  constructor(public authService: AuthService) {}
+  constructor( private store: Store<fromApp.AppState>) {}
 
   ngOnDestroy(): void {
   }
@@ -24,11 +26,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.correctEmail = true;
     this.correctPassword = true;
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe();
   }
 
   ngAfterViewInit(): void {
-    this.toggleDay(1);
+    this.toggleRole(1);
   }
 
 
@@ -42,13 +43,11 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    this.authService.login(form.value.email, form.value.password).catch(e => {
-      if (e.error.message === 'Auth failed, password not found') {
-        this.correctPassword = false;
-      } else if (e.error.message === 'Auth failed, email not found') {
-        this.correctEmail = false;
-      }
-    });
+    const email = form.value.email;
+    const password = form.value.password;
+    this.store.dispatch(
+      new AuthActions.LoginStart({ email, password })
+    );
   }
 
   onFocus() {
@@ -57,15 +56,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onUserSelect(buttonNum: number): void {
-    this.toggleDay(buttonNum);
+    this.toggleRole(buttonNum);
   }
 
   /**
-   * sets the button state to toggled depending on the day selected.
+   * sets the button state to toggled depending user role selected.
    *
-   * @param index Index of the selected day in the week.
+   * @param index Index of the selected role.
    */
-  toggleDay(index: number): void {
+  toggleRole(index: number): void {
 
     this.labelContainer.forEach(container => {
 

@@ -13,33 +13,28 @@
       <p class="stat">NUMBER</p>
     </div>
   </div>
-  <div class="col-sm-12 stat-c question-stat-c">
-    <p>Question {{"1"}}</p>
-    <h2>Question description</h2>
+  <div class="col-sm-12 stat-c question-stat-c" *ngFor="let question of questionnaire.questions">
+    <p>Question {{questionnaire.questions.indexOf(question) + 1}}</p>
+    <h2>{{question.description}}</h2>
     <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">23%</label>
+      <label class="p-bar-label">{{question.scale1}}</label>
       <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      <span class="value"></span>
     </div>
     <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">23%</label>
+      <label class="p-bar-label">{{question.scale2}}</label>
       <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      <span class="value"></span>
     </div>
     <div class="progress p-bar-c" data-label="20 responses">
-      <label class="p-bar-label">23%</label>
+      <label class="p-bar-label">{{question.scale3}}</label>
       <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      <span class="value"></span>
     </div>
     <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">23%</label>
+      <label class="p-bar-label">{{question.scale4}}</label>
       <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      <span class="value"></span>
     </div>
     <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">23%</label>
+      <label class="p-bar-label">{{question.scale5}}</label>
       <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-      <span class="value"></span>
     </div>
   </div>
 </div>

@@ -7,7 +7,7 @@ import {AuthGuard} from './authentication/auth-guard';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './authentication/auth-interceptor';
 import {StoreModule} from '@ngrx/store';
-import {QuestionnaireListReducer} from './store/reducers/questionnaire-list.reducer';
+import * as fromApp from './store/app.reducer'
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import {QuestionnaireListReducer} from './store/reducers/questionnaire-list.redu
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({questionnaireList: QuestionnaireListReducer})
+    StoreModule.forRoot(fromApp.appReducer)
   ],
   providers: [
     AuthGuard,

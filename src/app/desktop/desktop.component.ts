@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import * as fromQuestionnaireList from '../store/reducers/questionnaire-list.reducer';
-import * as QuestionnaireActions from '../store/actions/questionnaire-list.actions';
+import * as fromApp from '../store/app.reducer';
+import * as QuestionnaireActions from './store/questionnaire-list.actions';
 
 @Component({
   selector: 'app-desktop',
@@ -25,7 +25,7 @@ export class DesktopComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store<fromQuestionnaireList.AppState>
+    private store: Store<fromApp.AppState>
     ) {}
 
   ngOnInit(): void {

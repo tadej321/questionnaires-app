@@ -3,8 +3,8 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Questionnaire} from '../../models/questionnaire.model';
 import {Observable} from 'rxjs';
-import * as QuestionnaireActions from '../../store/actions/questionnaire-list.actions';
-import * as fromQuestionnaireList from '../../store/reducers/questionnaire-list.reducer';
+import * as QuestionnaireActions from '../store/questionnaire-list.actions';
+import * as fromApp from '../../store/app.reducer';
 
 @Component({
   selector: 'app-questionnaire-list',
@@ -19,18 +19,11 @@ export class QuestionnaireListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store<fromQuestionnaireList.AppState>
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
    this.questionnaires = this.store.select('questionnaireList');
-   // this.questionnaires.subscribe(data => {
-   //   console.log(data);
-   // });
-   // this.questionnaires.unshift({_id: '0', value: 'ADD'});
-
-
-
   }
 
   redirect(id): void {

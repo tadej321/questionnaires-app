@@ -5,7 +5,7 @@ import {DesktopComponent} from './desktop/desktop.component';
 const routes: Routes = [
   {path: 'auth', loadChildren: () => import('./authentication/auth.module').then(m => m.AuthModule)},
   {path: 'desktop', loadChildren: () => import('./desktop/desktop.module').then(m => m.DesktopModule), component: DesktopComponent},
-  {path: '', redirectTo: 'desktop', pathMatch: 'full'},
+  {path: '', redirectTo: 'desktop/list', pathMatch: 'full'},
 ];
 
 @NgModule({

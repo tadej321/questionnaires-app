@@ -6,7 +6,12 @@
 <ng-template #adminView>
   <div id="title-input-c" class="row col-sm-12 justify-content-center">
     <button id="publish-button" class="btn btn-primary">PUBLISH</button>
-    <input id="title-input" type="text" placeholder="Enter title">
+    <input
+      id="title-input"
+      type="text"
+      placeholder="Enter title"
+      value="{{questionnaire.title}}"
+      (blur)="onUpdateTitle()">
   </div>
 
   <div id="question-list-container" class="col-sm-12">
@@ -28,31 +33,32 @@
     <div class="col-sm-12">
       <p>Questionnaire 1</p>
     </div>
-
-    <div class="question-container col-sm-12">
-      <p class="q-tag">Question {{"1"}}</p>
-      <h4>Question description</h4>
-      <label class="radio-container">1
-        <input type="radio" checked="checked" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="radio-container">2
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="radio-container">3
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="radio-container">4
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="radio-container">5
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
-    </div>
-    <button (click)="onAddQuestion()" id="submit-button" class="btn btn-primary">SUBMIT</button>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div *ngFor="let question of questionnaire.questions" class="question-container-user col-sm-12">
+        <p class="q-tag">Question {{questionnaire.questions.indexOf(question) + 1}}</p>
+        <h4>{{question.description}}</h4>
+        <label class="radio-container">1
+          <input type="radio" value="1" [ngModel]="" name="radio{{questionnaire.questions.indexOf(question)}}">
+          <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">2
+          <input  type="radio" value="2" ngModel name="radio{{questionnaire.questions.indexOf(question)}}">
+          <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">3
+          <input  type="radio" value="3" ngModel name="radio{{questionnaire.questions.indexOf(question)}}">
+          <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">4
+          <input  type="radio" value="4" ngModel name="radio{{questionnaire.questions.indexOf(question)}}">
+          <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">5
+          <input type="radio" value="5" ngModel name="radio{{questionnaire.questions.indexOf(question)}}">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <input id="submit-button" type="submit" value="SUBMIT" class="btn btn-primary">
+    </form>
   </div>
 </ng-template>
