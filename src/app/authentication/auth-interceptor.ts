@@ -15,7 +15,7 @@ import * as fromApp from '../store/app.reducer';
    * FUNCTION:
    * This method mandatory, because Angular will call this method for requests leaving the app.
    **/
-  export class AuthInterceptorService implements HttpInterceptor {
+  export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private store: Store<fromApp.AppState>) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {

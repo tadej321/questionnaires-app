@@ -12,7 +12,6 @@ import {Store} from '@ngrx/store';
 
 export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private authStatusSub: Subscription;
   public correctPassword;
   public correctEmail;
 
