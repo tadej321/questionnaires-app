@@ -5,9 +5,9 @@ export class CreateUserDto {
   readonly email: string;
 
   @ApiModelProperty()
-  readonly password: number;
+  readonly password: string;
 
   @ApiModelProperty()
-  readonly isAdmin: boolean;
+  readonly isAdmin?: boolean;
 
 }

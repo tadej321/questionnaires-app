@@ -7,7 +7,9 @@ import {AuthGuard} from './authentication/auth-guard';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './authentication/auth-interceptor';
 import {StoreModule} from '@ngrx/store';
-import * as fromApp from './store/app.reducer'
+import * as fromApp from './store/app.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './authentication/store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import * as fromApp from './store/app.reducer'
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot(fromApp.appReducer)
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     AuthGuard,

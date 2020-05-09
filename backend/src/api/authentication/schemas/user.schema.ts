@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
 
 /**
  * A schema that defines how an object stored in the database should look.
@@ -8,13 +9,16 @@ export const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
-    type: Number,
+    type: String,
     required: true,
   },
   isAdmin: {
     type: Boolean,
-    required: true,
+    required: false,
   },
 });
+
+UserSchema.plugin(uniqueValidator);

@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-sm-12" id="desktop-header-c">
       <a routerLink="/"  (click)="redirect()">Questionnaire</a>
-      <button id="logout-button" class="btn" type="button">LOG OUT</button>
+      <button id="logout-button" (click)="onLogout()" class="btn" type="button">LOG OUT</button>
     </div>
     <div id="questionnaire-router-container" class="col-sm-12">
       <router-outlet></router-outlet>
