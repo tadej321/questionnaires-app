@@ -5,18 +5,18 @@ import {AuthGuard} from './authentication/auth-guard';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     loadChildren: () => import('./authentication/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'desktop',
     loadChildren: () => import('./desktop/desktop.module').then(m => m.DesktopModule),
     component: DesktopComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: '',
-    redirectTo: 'auth/login',
+    redirectTo: 'desktop/list',
     pathMatch: 'full'
   },
 ];

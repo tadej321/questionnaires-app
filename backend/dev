@@ -1,0 +1,5 @@
+
+> nest-rest-api@0.0.1 start C:\Users\Tadej\IdeaProjects\questionnaires-app\backend
+> ts-node -r tsconfig-paths/register src/main.ts
+
+Terminate batch job (Y/N)? Terminate batch job (Y/N)? 

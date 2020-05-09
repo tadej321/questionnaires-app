@@ -9,32 +9,7 @@ export interface State {
 }
 
 const initialState: State = {
-  questionnaires: [
-    new Questionnaire(
-      'test 1',
-      [
-          new Question('test question 1', 0, 0, 0, 0, 0, 'questionId1' ),
-          new Question('test question 2', 0, 0, 0, 0, 0, 'questionId2' )
-        ],
-      ['none'],
-      new Date(),
-      'testQId1'
-      ),
-    new Questionnaire(
-      'test 2',
-      [new Question('test question 2', 0, 0, 0, 0, 0 )],
-      ['none'],
-      new Date(),
-      'testQId2'
-    ),
-    new Questionnaire(
-      'test 3',
-      [new Question('test question 3', 0, 0, 0, 0, 0 )],
-      ['none'],
-      new Date(),
-      'testQId3'
-    )
-  ],
+  questionnaires: [],
   editedQuestionnaire: null,
   editedQuestionnaireId: null
 };
@@ -50,6 +25,11 @@ export function QuestionnaireListReducer(
   let updatedQuestions;
 
   switch (action.type) {
+    case QuestionnaireActions.SET_QUESTIONNAIRES:
+      return {
+        ... state,
+        questionnaires: [...action.payload]
+      };
     case QuestionnaireActions.ADD_QUESTIONNAIRE:
       const asda = [... state.questionnaires, action.payload];
       console.log(asda);

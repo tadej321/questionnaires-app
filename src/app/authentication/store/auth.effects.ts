@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {Observable, observable, of, Subscription} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -61,6 +61,39 @@ const handleError = (errorRes: any) => {
 
 @Injectable()
 export class AuthEffects {
+
+  @Effect()
+  authSignup = this.actions$.pipe(
+    ofType(AuthActions.SIGNUP_START),
+    switchMap((signupAction: AuthActions.SignupStart) => {
+      return this.http
+        .post<AuthResponseData>(
+          `${environment.backendApiUrl}/auth/signup`,
+          {
+            email: signupAction.payload.email,
+            password: signupAction.payload.password,
+            isAdmin: signupAction.payload.isAdmin
+          }
+        )
+        .pipe(
+          tap(resData => {
+            this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+          }),
+          map(resData => {
+            return handleAuthentication(
+              +resData.expiresIn,
+              resData.email,
+              resData.isAdmin,
+              resData.localId,
+              resData.idToken
+            );
+          }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
 
   @Effect()
   authLogin = this.actions$.pipe(

@@ -48,8 +48,17 @@ export class UsersService {
       isAdmin: user.isAdmin,
     };
 
-    return await this.userModel.create(newUser).then(() => {
-      return 'User successfully added';
+    return await this.userModel.create(newUser).then(data => {
+      const token = this.jwtService.sign(
+        {email: data.email, userId: data.id},
+      );
+      return {
+        expiresIn: 3600,
+        email: data.email,
+        isAdmin: data.isAdmin,
+        localId: data.id,
+        token,
+      };
     });
   }
 }

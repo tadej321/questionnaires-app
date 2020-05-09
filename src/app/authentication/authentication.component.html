@@ -1,0 +1,15 @@
+<div id="header-container" class="container ">
+  <div class="row justify-content-end">
+    <div class="col-sm-3">
+      <div class="col-12 btn-group btn-group-toggle"  #labelContainer data-toggle="buttons">
+        <label class="btn btn-sm">
+          <input (click)="onUserSelect(0)" type="radio" name="options" >ADMIN
+        </label>
+        <label class="btn btn-sm">
+          <input (click)="onUserSelect(1)" type="radio" name="options" >USER
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

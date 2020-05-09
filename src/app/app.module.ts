@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from './app-routing.component';
 import {AuthGuard} from './authentication/auth-guard';
@@ -10,6 +9,7 @@ import {StoreModule} from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './authentication/store/auth.effects';
+import {QuestionnaireListEffects} from './desktop/store/questionnaire-list.effects';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import {AuthEffects} from './authentication/store/auth.effects';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, QuestionnaireListEffects]),
   ],
   providers: [
     AuthGuard,

@@ -63,6 +63,7 @@ export class QuestionsComponent implements OnInit {
       newQuestions,
       this.questionnaire.shared,
       new Date(),
+      this.questionnaire.completed,
       this.questionnaire.id
     );
 

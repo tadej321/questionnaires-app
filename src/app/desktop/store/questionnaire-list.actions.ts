@@ -9,6 +9,8 @@ export const START_EDIT = 'START_EDIT';
 export const STOP_EDIT = 'STOP_EDIT';
 export const REMOVE_QUESTION = 'REMOVE_QUESTION';
 export const ADD_QUESTIONNAIRE_START = 'ADD_QUESTIONNAIRE_START';
+export const FETCH_QUESTIONNAIRES = 'FETCH_QUESTIONNAIRES';
+export const SET_QUESTIONNAIRES = 'SET_QUESTIONNAIRES';
 
 export class AddQuestionnaire implements Action {
   readonly type = ADD_QUESTIONNAIRE;
@@ -49,10 +51,22 @@ export class AddQuestionnaireStart implements Action {
 
   constructor(public payload: Questionnaire) {}
 }
+
+export class FetchQuestionnaires implements Action {
+  readonly type = FETCH_QUESTIONNAIRES;
+}
+
+export class SetQuestionnaires implements Action {
+  readonly type = SET_QUESTIONNAIRES;
+
+  constructor(public payload: Questionnaire[]) {}
+}
 export type QuestionnaireListActions =
   | AddQuestionnaire
   | UpdateQuestionnaire
   | DeleteQuestionnaire
   | StartEdit
   | StopEdit
-  | RemoveQuestion;
+  | RemoveQuestion
+  | FetchQuestionnaires
+  | SetQuestionnaires;

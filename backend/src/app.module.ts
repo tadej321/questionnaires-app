@@ -5,10 +5,12 @@ import {MongooseModule} from '@nestjs/mongoose';
 import config from './config/keys';
 import {UsersModule} from './api/authentication/users.module';
 import {UsersService} from './api/authentication/users.service';
+import {QuestionnaireModule} from './api/questionnaire/questionnaire.module';
 
 @Module({
   imports: [
     UsersModule,
+    QuestionnaireModule,
     MongooseModule.forRoot(config.mongoURI, {useNewUrlParser: true, useFindAndModify: false}),
 
   ],

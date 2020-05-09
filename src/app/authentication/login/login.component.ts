@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {NgForm, NgModel} from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
 import {Store} from '@ngrx/store';
@@ -10,26 +9,21 @@ import {Store} from '@ngrx/store';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   public correctPassword;
   public correctEmail;
 
-  @ViewChildren('labelContainer') labelContainer: QueryList<ElementRef>;
 
   constructor( private store: Store<fromApp.AppState>) {}
 
-  ngOnDestroy(): void {
-  }
+
 
   ngOnInit(): void {
     this.correctEmail = true;
     this.correctPassword = true;
   }
 
-  ngAfterViewInit(): void {
-    this.toggleRole(1);
-  }
 
 
   onLogin(form: NgForm) {
@@ -42,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
+    console.log(new Date());
     const email = form.value.email;
     const password = form.value.password;
     this.store.dispatch(
@@ -54,29 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.correctEmail = true;
   }
 
-  onUserSelect(buttonNum: number): void {
-    this.toggleRole(buttonNum);
-  }
 
-  /**
-   * sets the button state to toggled depending user role selected.
-   *
-   * @param index Index of the selected role.
-   */
-  toggleRole(index: number): void {
-
-    this.labelContainer.forEach(container => {
-
-      const labels = container.nativeElement.children;
-
-      for (const label of labels) {
-        label.classList.remove('toggled');
-      }
-
-      labels[index].classList.add('toggled');
-    });
+  ngOnDestroy() {
 
   }
-
-
 }

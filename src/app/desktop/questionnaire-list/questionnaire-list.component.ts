@@ -32,7 +32,7 @@ export class QuestionnaireListComponent implements OnInit {
   }
 
   onAddQuestionnaire() {
-    const newQuestionnaire = new Questionnaire('', [], [], new Date());
+    const newQuestionnaire = new Questionnaire('', [], [], new Date(), []);
     this.store.dispatch(new QuestionnaireActions.AddQuestionnaire(newQuestionnaire));
   }
 
