@@ -8,7 +8,8 @@ export class Questionnaire {
     public shared: string[],
     public dateModified: Date,
     public completed: string[],
-    public id?: string,
+    public published: boolean,
+    public _id?: string,
   ) {}
 
 }

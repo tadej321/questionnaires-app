@@ -5,14 +5,14 @@ import {AuthGuard} from './authentication/auth-guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'auth',
     loadChildren: () => import('./authentication/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'desktop',
     loadChildren: () => import('./desktop/desktop.module').then(m => m.DesktopModule),
     component: DesktopComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: '',

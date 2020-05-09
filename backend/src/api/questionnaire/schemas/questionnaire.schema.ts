@@ -7,7 +7,6 @@ import * as mongoose from 'mongoose';
 export const QuestionnaireSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
   },
   questions: {
     type: Array,
@@ -18,11 +17,15 @@ export const QuestionnaireSchema = new mongoose.Schema({
     required: true,
   },
   dateModified: {
-    type: String,
+    type: Date,
     required: true,
   },
   completed: {
     type: Array,
+    required: true,
+  },
+  published: {
+    type: Boolean,
     required: true,
   },
 

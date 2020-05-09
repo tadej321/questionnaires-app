@@ -5,7 +5,7 @@ export class User {
     public id: string,
     private _token: string,
     private _tokenExpirationDate: Date,
-    public isAdmin?: boolean,
+    public isAdmin: boolean,
   ) {}
 
   get token() {

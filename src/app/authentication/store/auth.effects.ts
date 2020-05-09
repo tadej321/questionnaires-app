@@ -29,12 +29,12 @@ const handleAuthentication = (
 ) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
   const user = new User(email, userId, token, expirationDate, isAdmin);
-  console.log(user);
   localStorage.setItem('userData', JSON.stringify(user));
   return new AuthActions.AuthenticateSuccess({
     email,
     userId,
     token,
+    isAdmin,
     expirationDate,
     redirect: true
   });
@@ -78,6 +78,8 @@ export class AuthEffects {
         .pipe(
           tap(resData => {
             this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+            this.authService.setIsAdmin(resData.isAdmin);
+            this.authService.setUserEmail(resData.email);
           }),
           map(resData => {
             return handleAuthentication(
@@ -110,6 +112,8 @@ export class AuthEffects {
         .pipe(
           tap(resData => {
             this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+            this.authService.setIsAdmin(resData.isAdmin);
+            this.authService.setUserEmail(resData.email);
           }),
           map(resData => {
             return handleAuthentication(

@@ -5,8 +5,9 @@ export interface Questionnaire {
   title: string;
   questions: Question[];
   shared: string[];
-  dateModified: string;
+  dateModified: Date;
   completed: string[];
-  id?: string;
+  published: boolean;
+  _id?: string;
 
 }

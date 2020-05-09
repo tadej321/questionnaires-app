@@ -2,11 +2,11 @@
   <div id="questionnaire-stats-c" class="col-sm-12 stat-c">
     <div class="inline-stats" id="responses-c">
       <p class="label">Responses</p>
-      <p class="stat">NUMBER</p>
+      <p class="stat">{{questionnaire.completed.length}}</p>
     </div>
     <div class="inline-stats" id="completion-rate-c">
       <p class="label">Completion rate</p>
-      <p class="stat">NUMBER</p>
+      <p class="stat">{{questionnaire.completed.length / questionnaire.shared.length * 100}}%</p>
     </div>
     <div class="inline-stats" id="avg-time-c">
       <p class="label">Average time to complete</p>

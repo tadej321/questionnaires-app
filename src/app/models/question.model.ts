@@ -9,7 +9,7 @@ export class Question {
    public scale3: number,
    public scale4: number,
    public scale5: number,
-   public id?: string,
+   public _id?: string,
  ) {}
 
 }

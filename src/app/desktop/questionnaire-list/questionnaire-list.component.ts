@@ -5,6 +5,7 @@ import {Questionnaire} from '../../models/questionnaire.model';
 import {Observable} from 'rxjs';
 import * as QuestionnaireActions from '../store/questionnaire-list.actions';
 import * as fromApp from '../../store/app.reducer';
+import {AuthService} from '../../authentication/auth.service';
 
 @Component({
   selector: 'app-questionnaire-list',
@@ -14,16 +15,22 @@ import * as fromApp from '../../store/app.reducer';
 export class QuestionnaireListComponent implements OnInit {
 
   questionnaires: Observable<{questionnaires: Questionnaire[]}>;
-
-  public mod = [1, 2, 3, 4, 5];
+  public isAdmin = false;
 
   constructor(
+    private authService: AuthService,
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
-   this.questionnaires = this.store.select('questionnaireList');
+    this.isAdmin = this.authService.getIsAdmin();
+    if (this.isAdmin) {
+      this.store.dispatch(new QuestionnaireActions.FetchQuestionnaires());
+    } else {
+      this.store.dispatch(new QuestionnaireActions.FetchUserQuestionnaires(this.authService.getUserEmail()));
+    }
+    this.questionnaires = this.store.select('questionnaireList');
   }
 
   redirect(id): void {
@@ -32,7 +39,7 @@ export class QuestionnaireListComponent implements OnInit {
   }
 
   onAddQuestionnaire() {
-    const newQuestionnaire = new Questionnaire('', [], [], new Date(), []);
+    const newQuestionnaire = new Questionnaire('', [], [], new Date(), [], false);
     this.store.dispatch(new QuestionnaireActions.AddQuestionnaire(newQuestionnaire));
   }
 

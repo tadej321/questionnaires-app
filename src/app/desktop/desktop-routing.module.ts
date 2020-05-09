@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'list',
     component: QuestionnaireListComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'questionnaire/:id',
@@ -30,7 +30,7 @@ const routes: Routes = [
       }
     ],
     component: QuestionnaireComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 ];
 

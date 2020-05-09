@@ -18,6 +18,7 @@ export class QuestionnaireListEffects {
       );
     }),
     map(questionnaires => {
+      console.log(typeof questionnaires);
       return questionnaires.map(questionnaire => {
         return {
           ... questionnaire
@@ -28,12 +29,70 @@ export class QuestionnaireListEffects {
       return new QuestionnaireActions.SetQuestionnaires(questionnaires);
     })
   );
-  // addQuestionnaire = this.actions$.pipe(
-  //   ofType(QuestionnaireActions.ADD_QUESTIONNAIRE_START),
-  //   // switchMap((questionnaireData: QuestionnaireActions.AddQuestionnaireStart) => {
-  //   //
-  //   // })
-  // );
+
+  @Effect()
+  fetchUserQuestionnaire = this.actions$.pipe(
+    ofType(QuestionnaireActions.FETCH_USER_QUESTIONNAIRES),
+    switchMap((questionnaireData: QuestionnaireActions.FetchUserQuestionnaires) => {
+      return this.http.get<Questionnaire[]>(
+        `${environment.backendApiUrl}/questionnaire/${questionnaireData.payload}`
+      );
+    }),
+    map(questionnaires => {
+      console.log(questionnaires);
+      return questionnaires.map(questionnaire => {
+        return {
+          ... questionnaire
+        };
+      });
+    }),
+    map(questionnaires => {
+      return new QuestionnaireActions.SetQuestionnaires(questionnaires);
+    })
+  );
+
+
+  @Effect()
+  addQuestionnaire = this.actions$.pipe(
+    ofType(QuestionnaireActions.ADD_QUESTIONNAIRE),
+    switchMap((questionnaireData: QuestionnaireActions.AddQuestionnaire) => {
+      return this.http.post<Questionnaire[]>(
+        `${environment.backendApiUrl}/questionnaire`,
+        questionnaireData.payload
+      );
+    }),
+    map(() => {
+      return new QuestionnaireActions.FetchQuestionnaires();
+    })
+  );
+
+  @Effect()
+  updateQuestionnaire = this.actions$.pipe(
+    ofType(QuestionnaireActions.UPDATE_QUESTIONNAIRE),
+    switchMap((questionnaireData: QuestionnaireActions.UpdateQuestionnaire) => {
+      console.log(questionnaireData);
+      return this.http.put<{}>(
+        `${environment.backendApiUrl}/questionnaire`,
+        questionnaireData.payload
+      );
+    }),
+    map(() => {
+      return new QuestionnaireActions.FetchQuestionnaires();
+    })
+  );
+
+  @Effect()
+  deleteQuestionnaire = this.actions$.pipe(
+    ofType(QuestionnaireActions.DELETE_QUESTIONNAIRE),
+    switchMap((questionnaireData: QuestionnaireActions.DeleteQuestionnaire) => {
+      return this.http.delete<{}>(
+        `${environment.backendApiUrl}/questionnaire/${questionnaireData.payload}`,
+      );
+    }),
+    map(() => {
+      return new QuestionnaireActions.FetchQuestionnaires();
+    })
+  );
 
   constructor(private actions$: Actions, private http: HttpClient) {}
 }

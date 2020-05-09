@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as QuestionnaireActions from '../../store/questionnaire-list.actions';
 import {Store} from '@ngrx/store';
 import {Questionnaire} from '../../../models/questionnaire.model';
@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import * as fromApp from '../../../store/app.reducer';
 import {Question} from '../../../models/question.model';
 import {NgForm} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {AuthService} from '../../../authentication/auth.service';
 
 
 @Component({
@@ -13,31 +15,41 @@ import {NgForm} from '@angular/forms';
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css']
 })
-export class QuestionsComponent implements OnInit {
+export class QuestionsComponent implements OnInit, OnDestroy {
 
   questionnaire: Questionnaire;
 
   public isAdmin = false;
 
+  private questionnaireSub: Subscription;
+  public isDisabled: boolean;
+
   constructor(
     private store: Store<fromApp.AppState>,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.store.select('questionnaireList').subscribe(stateData => {
+    this.isAdmin = this.authService.getIsAdmin();
+    this.questionnaireSub = this.store.select('questionnaireList').subscribe(stateData => {
       if (stateData.editedQuestionnaireId !== null) {
         this.questionnaire = stateData.editedQuestionnaire;
+        this.setDisabled(stateData.editedQuestionnaire.completed);
       } else {
         this.router.navigate(['desktop/list']);
       }
     });
   }
 
+  private setDisabled(completed: string[]) {
+    this.isDisabled = !!completed.find(e => e === this.authService.getUserEmail());
+  }
+
   onAddQuestion() {
     const value = ((document.getElementById('question-input') as HTMLInputElement).value);
     if (value !== '') {
-      const newQuestion = new Question(value, 0, 0, 0, 0, 0, value + 'Id');
+      const newQuestion = new Question(value, 0, 0, 0, 0, 0);
 
       const updatedQuestions = [...this.questionnaire.questions, newQuestion];
 
@@ -53,7 +65,7 @@ export class QuestionsComponent implements OnInit {
     }
   }
 
-  onUpdateQuestionnaire(questions?: Question[], title?: string) {
+  private onUpdateQuestionnaire(questions?: Question[], title?: string) {
 
     const newQuestions = questions ? questions : this.questionnaire.questions;
     const newTitle = title ? title : this.questionnaire.title;
@@ -64,7 +76,8 @@ export class QuestionsComponent implements OnInit {
       this.questionnaire.shared,
       new Date(),
       this.questionnaire.completed,
-      this.questionnaire.id
+      false,
+      this.questionnaire._id
     );
 
     this.store.dispatch(new QuestionnaireActions.UpdateQuestionnaire(newQuestionnaire));
@@ -73,7 +86,7 @@ export class QuestionsComponent implements OnInit {
 
   onRemoveQuestion(id: string) {
     this.onUpdateQuestionnaire(this.questionnaire.questions.filter((q, qIndex) => {
-      return q.id !== id;
+      return q._id !== id;
     }));
   }
 
@@ -93,6 +106,34 @@ export class QuestionsComponent implements OnInit {
       index ++;
     }
 
-    this.onUpdateQuestionnaire(updatedQuestions);
+    const newQuestionnaire = new Questionnaire(
+      this.questionnaire.title,
+      updatedQuestions,
+      this.questionnaire.shared,
+      this.questionnaire.dateModified,
+      [...this.questionnaire.completed, this.authService.getUserEmail()],
+      this.questionnaire.published,
+      this.questionnaire._id
+    );
+
+    this.store.dispatch(new QuestionnaireActions.UpdateQuestionnaire(newQuestionnaire));
+  }
+
+  ngOnDestroy(): void {
+    this.questionnaireSub.unsubscribe();
+  }
+
+  onPublish() {
+    const newQuestionnaire = new Questionnaire(
+      this.questionnaire.title,
+      this.questionnaire.questions,
+      this.questionnaire.shared,
+      this.questionnaire.dateModified,
+      this.questionnaire.completed,
+      true,
+      this.questionnaire._id,
+    );
+    console.log(newQuestionnaire);
+    this.store.dispatch(new QuestionnaireActions.UpdateQuestionnaire(newQuestionnaire));
   }
 }

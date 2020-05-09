@@ -15,8 +15,8 @@ export class QuestionnaireController {
   }
 
   @Get('/:email')
-  getByUser(@Param() userEmail: string): Promise<CreateQuestionnaireDto[]> {
-    return this.questionnaireService.getByUser(userEmail);
+  getByUser(@Param() userEmail: {email: string}): Promise<CreateQuestionnaireDto[]> {
+    return this.questionnaireService.getByUser(userEmail.email);
   }
 
   @Post()
@@ -26,6 +26,7 @@ export class QuestionnaireController {
 
   @Put()
   update(@Body() createQuestionnaireDto: CreateQuestionnaireDto): Promise<CreateQuestionnaireDto> {
+    console.log(createQuestionnaireDto);
     return this.questionnaireService.update(createQuestionnaireDto);
   }
 

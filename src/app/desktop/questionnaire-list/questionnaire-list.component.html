@@ -4,7 +4,12 @@
       <p>All Questionnaires</p>
     </div>
     <div class="col-sm-7">
-      <button (click)="onAddQuestionnaire()" id="add-q-button" class="btn btn-primary">ADD QUESTIONNAIRE</button>
+      <button
+        *ngIf="isAdmin"
+        (click)="onAddQuestionnaire()"
+        id="add-q-button"
+        class="btn btn-primary"
+      >ADD QUESTIONNAIRE</button>
     </div>
   </div>
   <div id="questionnaires-list">
@@ -14,10 +19,10 @@
           <div class="content">
             <div class="table">
               <div class="table-cell">
-                <button (click)="redirect(questionnaire.id)" class="open-button">
+                <button (click)="redirect(questionnaire._id)" class="open-button">
                   {{questionnaire.title}}
                 </button>
-                <button (click)="onRemoveQuestionnaire(questionnaire.id)" class="remove-button">
+                <button (click)="onRemoveQuestionnaire(questionnaire._id)" class="remove-button">
                   X
                 </button>
               </div>

@@ -39,6 +39,7 @@ export class DesktopComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
+    this.authService.setUserEmail(undefined);
     this.store.dispatch(new AuthActions.Logout());
   }
 

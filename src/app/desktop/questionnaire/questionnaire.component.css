@@ -22,3 +22,8 @@ label {
 #tab-router-container {
   margin-top: 2%;
 }
+
+.toggled {
+  border-bottom: 1px solid #0077e6;
+  color: #0077e6
+}

@@ -12,8 +12,11 @@ export class CreateQuestionnaireDto {
   readonly shared: string[];
 
   @ApiModelProperty()
-  readonly dateModified: string;
+  readonly dateModified: Date;
 
   @ApiModelProperty()
   readonly completed: string[];
+
+  @ApiModelProperty()
+  readonly published: boolean;
 }

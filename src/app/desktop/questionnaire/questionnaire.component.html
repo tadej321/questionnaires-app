@@ -2,13 +2,13 @@
   <div id="questionnaire-nav-c" class="col-sm-12">
     <div class="col-12 btn-group btn-group-toggle"  #labelContainer data-toggle="buttons">
       <label class="btn btn-sm tab-label">
-        <input [routerLink]="['questions']" type="radio" name="options" >Questions
+        <input (click)="toggleTab(0)" [routerLink]="['questions']" type="radio" name="options" >Questions
+      </label>
+      <label *ngIf="isAdmin" class="btn btn-sm tab-label">
+        <input (click)="toggleTab(1)" [routerLink]="['share']" type="radio" name="options" >Share
       </label>
       <label class="btn btn-sm tab-label">
-        <input [routerLink]="['share']" type="radio" name="options" >Share
-      </label>
-      <label class="btn btn-sm tab-label">
-        <input [routerLink]="['results']" type="radio" name="options" >Results
+        <input (click)="toggleTab(2)" [routerLink]="['results']" type="radio" name="options" >Results
       </label>
       <label id="helper-label">
       </label>

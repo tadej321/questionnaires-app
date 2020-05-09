@@ -8,18 +8,27 @@ import {Observable, Subject} from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private tokenExpirationTimer: any;
-  private isAdmin = new Subject<boolean>();
+  private isAdmin: boolean;
+  private userEmail: string;
 
   constructor(
     private store: Store<fromApp.AppState>
   ) {}
 
-  getIsAdminListener(): Observable<boolean> {
-    return this.isAdmin.asObservable();
+  setIsAdmin(state: boolean) {
+    this.isAdmin = state;
   }
 
-  setIsAdmin(state: boolean) {
-    this.isAdmin.next(state);
+  getIsAdmin(): boolean {
+    return this.isAdmin;
+  }
+
+  getUserEmail(): string {
+    return this.userEmail;
+  }
+
+  setUserEmail(email: string) {
+    this.userEmail = email;
   }
 
   setLogoutTimer(expirationDuration: number) {

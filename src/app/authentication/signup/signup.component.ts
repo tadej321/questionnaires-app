@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {Subscription} from 'rxjs';
 import {NgForm} from '@angular/forms';
@@ -11,11 +11,13 @@ import * as AuthActions from '../store/auth.actions';
   styleUrls: ['./signup.component.css']
 })
 
-export class SignupComponent implements OnInit, OnDestroy {
+export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
+
   public passwordMismatch = false;
   public emailTaken = false;
-  private isAdminSub: Subscription;
   private isAdmin: boolean;
+
+  @ViewChildren('labelContainer') labelContainer: QueryList<ElementRef>;
 
   constructor(
     private authService: AuthService,
@@ -23,13 +25,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.isAdminSub.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.isAdminSub = this.authService.getIsAdminListener().subscribe(data => {
-      this.isAdmin = data;
-    });
   }
 
   onSignup(form: NgForm, event) {
@@ -50,11 +48,38 @@ export class SignupComponent implements OnInit, OnDestroy {
       password: form.value.password,
       isAdmin: this.isAdmin,
     };
-    console.log("OK");
-
     this.store.dispatch(new AuthActions.SignupStart(userCredentials));
 
 
   }
 
+  ngAfterViewInit(): void {
+    this.onUserSelect(0);
+  }
+
+  onUserSelect(buttonNum: number): void {
+    this.toggleRole(buttonNum);
+    this.isAdmin = buttonNum === 0;
+    this.authService.setIsAdmin(buttonNum === 0);
+  }
+
+  /**
+   * sets the button state to toggled depending user role selected.
+   *
+   * @param index Index of the selected role.
+   */
+  toggleRole(index: number): void {
+
+    this.labelContainer.forEach(container => {
+
+      const labels = container.nativeElement.children;
+
+      for (const label of labels) {
+        label.classList.remove('toggled');
+      }
+
+      labels[index].classList.add('toggled');
+    });
+
+  }
 }

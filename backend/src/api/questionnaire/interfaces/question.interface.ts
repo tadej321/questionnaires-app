@@ -1,6 +1,6 @@
 export interface Question {
 
-  id?: string;
+  _id?: string;
   description: string;
   scale1: number;
   scale2: number;
