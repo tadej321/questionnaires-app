@@ -8,7 +8,7 @@ import {ShareComponent} from './questionnaire/share/share.component';
 import {ResultsComponent} from './questionnaire/results/results.component';
 import { RowPipe } from './questionnaire-list/row.pipe';
 import { QuestionnaireListComponent } from './questionnaire-list/questionnaire-list.component';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -25,7 +25,8 @@ import {FormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     DesktopRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+    ReactiveFormsModule
+  ],
 })
 export class DesktopModule { }

@@ -1,5 +1,6 @@
 import {Questionnaire} from '../../models/questionnaire.model';
 import * as QuestionnaireActions from './questionnaire-list.actions';
+import {WebSocketService} from '../web-socket.service';
 
 export interface State {
   questionnaires: Questionnaire[];
@@ -27,15 +28,15 @@ export function QuestionnaireListReducer(
         editedQuestionnaire
       };
 
-    case QuestionnaireActions.START_EDIT:
-      console.log(state.questionnaires.find(x => x._id === action.payload));
+    case QuestionnaireActions.OPEN_QUESTIONNAIRE:
+
       return {
         ...state,
         editedQuestionnaireId: action.payload,
         editedQuestionnaire: {...state.questionnaires.find(x => x._id === action.payload)}
       };
 
-    case QuestionnaireActions.STOP_EDIT:
+    case QuestionnaireActions.CLOSE_QUESTIONNAIRE:
       return {
         ...state,
         editedQuestionnaire: null,

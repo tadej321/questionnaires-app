@@ -34,12 +34,13 @@ export class QuestionnaireListComponent implements OnInit {
   }
 
   redirect(id): void {
-    this.store.dispatch(new QuestionnaireActions.StartEdit(id));
+    this.store.dispatch(new QuestionnaireActions.OpenQuestionnaire(id));
+
     this.router.navigate(['desktop/questionnaire', id, 'questions']);
   }
 
   onAddQuestionnaire() {
-    const newQuestionnaire = new Questionnaire('', [], [], new Date(), [], false);
+    const newQuestionnaire = new Questionnaire('', [], [], new Date(), [], false, []);
     this.store.dispatch(new QuestionnaireActions.AddQuestionnaire(newQuestionnaire));
   }
 

@@ -7,4 +7,5 @@ export interface Question {
   scale3: number;
   scale4: number;
   scale5: number;
+
 }

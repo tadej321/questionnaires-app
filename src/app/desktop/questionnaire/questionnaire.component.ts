@@ -26,7 +26,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(new QuestionnaireActions.StopEdit());
+    this.store.dispatch(new QuestionnaireActions.CloseQuestionnaire());
   }
 
   ngAfterViewInit(): void {
@@ -38,7 +38,6 @@ export class QuestionnaireComponent implements OnInit, OnDestroy, AfterViewInit 
     this.labelContainer.forEach(container => {
 
       const labels = container.nativeElement.children;
-      console.log(labels);
       for (const label of labels) {
         label.classList.remove('toggled');
       }

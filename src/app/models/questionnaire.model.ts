@@ -9,6 +9,7 @@ export class Questionnaire {
     public dateModified: Date,
     public completed: string[],
     public published: boolean,
+    public completionTime: number[],
     public _id?: string,
   ) {}
 

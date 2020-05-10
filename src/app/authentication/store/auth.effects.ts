@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import * as AuthActions from './auth.actions';
 import { User } from '../models/user.model';
 import { AuthService } from '../auth.service';
+import {WebSocketService} from '../../desktop/web-socket.service';
 
 export interface AuthResponseData {
   isAdmin: boolean;
@@ -136,6 +137,9 @@ export class AuthEffects {
   authRedirect = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+      if (authSuccessAction.payload.isAdmin) {
+        this.webSocketService.initSocket();
+      }
       if (authSuccessAction.payload.redirect) {
         this.router.navigate(['/desktop/list']);
       }
@@ -157,6 +161,7 @@ export class AuthEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private webSocketService: WebSocketService,
   ) {}
 }

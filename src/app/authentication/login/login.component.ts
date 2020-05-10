@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(new Date());
     const email = form.value.email;
     const password = form.value.password;
     this.store.dispatch(

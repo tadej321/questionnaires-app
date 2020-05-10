@@ -19,7 +19,7 @@ export class QuestionnaireService {
   }
 
   async getByUser(userEmail: string): Promise<Questionnaire[]> {
-    return await this.questionnaireModel.find({shared: {$in: [userEmail]}});
+    return await this.questionnaireModel.find({$and: [{shared: {$in: [userEmail]}}, {published: true}]});
   }
 
   async update(questionnaire: Questionnaire) {

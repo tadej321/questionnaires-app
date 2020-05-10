@@ -26,7 +26,6 @@ export class QuestionnaireController {
 
   @Put()
   update(@Body() createQuestionnaireDto: CreateQuestionnaireDto): Promise<CreateQuestionnaireDto> {
-    console.log(createQuestionnaireDto);
     return this.questionnaireService.update(createQuestionnaireDto);
   }
 

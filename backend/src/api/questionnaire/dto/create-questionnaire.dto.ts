@@ -19,4 +19,7 @@ export class CreateQuestionnaireDto {
 
   @ApiModelProperty()
   readonly published: boolean;
+
+  @ApiModelProperty()
+  readonly completionTime: number[];
 }

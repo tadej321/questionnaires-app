@@ -6,35 +6,66 @@
     </div>
     <div class="inline-stats" id="completion-rate-c">
       <p class="label">Completion rate</p>
-      <p class="stat">{{questionnaire.completed.length / questionnaire.shared.length * 100}}%</p>
+      <p class="stat">{{(questionnaire.completed.length / questionnaire.shared.length * 100).toFixed(2)}}%</p>
     </div>
     <div class="inline-stats" id="avg-time-c">
       <p class="label">Average time to complete</p>
-      <p class="stat">NUMBER</p>
+      <p class="stat">{{getAverageTime(questionnaire.completionTime)}}</p>
     </div>
   </div>
+
   <div class="col-sm-12 stat-c question-stat-c" *ngFor="let question of questionnaire.questions">
     <p>Question {{questionnaire.questions.indexOf(question) + 1}}</p>
     <h2>{{question.description}}</h2>
-    <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">{{question.scale1}}</label>
-      <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress">
+      <label class="p-bar-label">{{calculateScaleCent(question, question.scale1)}}%</label>
+      <div
+        class="progress-bar p-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width.%]="calculateScaleCent(question, question.scale1)"
+      >{{question.scale1}} Responses</div>
     </div>
-    <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">{{question.scale2}}</label>
-      <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress">
+      <label class="p-bar-label">{{calculateScaleCent(question, question.scale2)}}%</label>
+      <div
+        class="progress-bar p-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width.%]="calculateScaleCent(question, question.scale2)"
+      >{{question.scale2}} Responses</div>
     </div>
-    <div class="progress p-bar-c" data-label="20 responses">
-      <label class="p-bar-label">{{question.scale3}}</label>
-      <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress">
+      <label class="p-bar-label">{{calculateScaleCent(question, question.scale3)}}%</label>
+      <div
+        class="progress-bar p-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width.%]="calculateScaleCent(question, question.scale3)"
+      >{{question.scale3}} Responses</div>
     </div>
-    <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">{{question.scale4}}</label>
-      <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress">
+      <label class="p-bar-label">{{calculateScaleCent(question, question.scale4)}}%</label>
+      <div
+        class="progress-bar p-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width.%]="calculateScaleCent(question, question.scale4)"
+      >{{question.scale4}} Responses</div>
     </div>
-    <div class="progress p-bar-c" data-label="50 responses">
-      <label class="p-bar-label">{{question.scale5}}</label>
-      <div class="progress-bar w-100 p-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress">
+      <label class="p-bar-label">{{calculateScaleCent(question, question.scale5)}}%</label>
+      <div
+        class="progress-bar p-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width.%]="calculateScaleCent(question, question.scale5)"
+      >{{question.scale5}} Responses</div>
     </div>
   </div>
 </div>

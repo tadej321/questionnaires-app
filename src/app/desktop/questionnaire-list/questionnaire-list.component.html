@@ -22,7 +22,7 @@
                 <button (click)="redirect(questionnaire._id)" class="open-button">
                   {{questionnaire.title}}
                 </button>
-                <button (click)="onRemoveQuestionnaire(questionnaire._id)" class="remove-button">
+                <button *ngIf="isAdmin" (click)="onRemoveQuestionnaire(questionnaire._id)" class="remove-button">
                   X
                 </button>
               </div>

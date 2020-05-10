@@ -22,13 +22,13 @@
 }
 
 .progress {
-  background: #e6f7ff;
+  background: #BEBEBE;
   margin: 10px 10px 15px 10px;
   height: 26px;
   position: relative;
+
 }
 .progress:before {
-  content: attr(data-label);
   font-weight: bold;
   font-size: 0.8em;
   position: absolute;
@@ -44,10 +44,16 @@
 }
 
 .p-bar-label {
+  text-align: center;
+  background: #e6f7ff;
+  width: 5%;
+  height: 30px;
   font-size: 20px;
-  margin: 0 10px 10px 0;
+  margin-bottom: 10px;
+  padding-right: 10px;
 }
 
 .p-bar {
   border-radius: 5px;
+  width: 95%;
 }

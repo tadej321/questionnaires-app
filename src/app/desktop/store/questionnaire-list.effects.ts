@@ -1,11 +1,12 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 
 import * as QuestionnaireActions from './questionnaire-list.actions';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Questionnaire} from '../../models/questionnaire.model';
 import {environment} from '../../../environments/environment';
 import {Injectable} from '@angular/core';
+import {WebSocketService} from '../web-socket.service';
 
 @Injectable()
 export class QuestionnaireListEffects {
@@ -18,7 +19,6 @@ export class QuestionnaireListEffects {
       );
     }),
     map(questionnaires => {
-      console.log(typeof questionnaires);
       return questionnaires.map(questionnaire => {
         return {
           ... questionnaire
@@ -39,7 +39,6 @@ export class QuestionnaireListEffects {
       );
     }),
     map(questionnaires => {
-      console.log(questionnaires);
       return questionnaires.map(questionnaire => {
         return {
           ... questionnaire
@@ -70,7 +69,6 @@ export class QuestionnaireListEffects {
   updateQuestionnaire = this.actions$.pipe(
     ofType(QuestionnaireActions.UPDATE_QUESTIONNAIRE),
     switchMap((questionnaireData: QuestionnaireActions.UpdateQuestionnaire) => {
-      console.log(questionnaireData);
       return this.http.put<{}>(
         `${environment.backendApiUrl}/questionnaire`,
         questionnaireData.payload
@@ -94,5 +92,21 @@ export class QuestionnaireListEffects {
     })
   );
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  @Effect({ dispatch: false })
+  onStartEdit = this.actions$.pipe(
+    ofType(QuestionnaireActions.ON_START_EDIT),
+    tap((questionnaireData: QuestionnaireActions.OnStartEdit) => {
+      this.webSocketService.emit('editStart', questionnaireData.payload);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  onStopEdit = this.actions$.pipe(
+    ofType(QuestionnaireActions.ON_STOP_EDIT),
+    tap((questionnaireData: QuestionnaireActions.OnStopEdit) => {
+      this.webSocketService.emit('editStop', questionnaireData.payload);
+    })
+  );
+
+  constructor(private actions$: Actions, private http: HttpClient, private webSocketService: WebSocketService) {}
 }

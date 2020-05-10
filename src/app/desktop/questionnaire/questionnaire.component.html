@@ -8,7 +8,7 @@
         <input (click)="toggleTab(1)" [routerLink]="['share']" type="radio" name="options" >Share
       </label>
       <label class="btn btn-sm tab-label">
-        <input (click)="toggleTab(2)" [routerLink]="['results']" type="radio" name="options" >Results
+        <input (click)="toggleTab(isAdmin ? 2 : 1)" [routerLink]="['results']" type="radio" name="options" >Results
       </label>
       <label id="helper-label">
       </label>

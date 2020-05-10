@@ -1,12 +1,14 @@
 import {Action} from '@ngrx/store';
 import {Questionnaire} from '../../models/questionnaire.model';
-import {Question} from '../../models/question.model';
+
 
 export const ADD_QUESTIONNAIRE = 'ADD_QUESTIONNAIRE';
 export const UPDATE_QUESTIONNAIRE = 'UPDATE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
-export const START_EDIT = 'START_EDIT';
-export const STOP_EDIT = 'STOP_EDIT';
+export const ON_START_EDIT = 'ON_START_EDIT';
+export const ON_STOP_EDIT = 'ON_STOP_EDIT';
+export const OPEN_QUESTIONNAIRE = 'OPEN_QUESTIONNAIRE';
+export const CLOSE_QUESTIONNAIRE = 'CLOSE_QUESTIONNAIRE';
 export const REMOVE_QUESTION = 'REMOVE_QUESTION';
 export const FETCH_USER_QUESTIONNAIRES = 'FETCH_USER_QUESTIONNAIRES';
 export const FETCH_QUESTIONNAIRES = 'FETCH_QUESTIONNAIRES';
@@ -36,14 +38,14 @@ export class DeleteQuestionnaire implements Action {
   constructor(public payload: string) {}
 }
 
-export class StartEdit implements Action {
-  readonly type = START_EDIT;
+export class OpenQuestionnaire implements Action {
+  readonly type = OPEN_QUESTIONNAIRE;
 
   constructor(public payload: string) {}
 }
 
-export class StopEdit implements Action {
-  readonly type = STOP_EDIT;
+export class CloseQuestionnaire implements Action {
+  readonly type = CLOSE_QUESTIONNAIRE;
 }
 
 export class FetchQuestionnaires implements Action {
@@ -61,13 +63,27 @@ export class SetQuestionnaires implements Action {
 
   constructor(public payload: Questionnaire[]) {}
 }
+
+export class OnStartEdit implements Action {
+  readonly type = ON_START_EDIT;
+
+  constructor(public payload: {editor: string, editing: string}) {}
+}
+
+export class OnStopEdit implements Action {
+  readonly type = ON_STOP_EDIT;
+
+  constructor(public payload: {editor: string, editing: string}) {}
+}
 export type QuestionnaireListActions =
   | AddQuestionnaire
   | UpdateQuestionnaire
   | DeleteQuestionnaire
-  | StartEdit
-  | StopEdit
+  | OpenQuestionnaire
+  | CloseQuestionnaire
   | RemoveQuestion
   | FetchQuestionnaires
   | SetQuestionnaires
-  | FetchQuestionnaires;
+  | FetchQuestionnaires
+  | OnStartEdit
+  | OnStopEdit;

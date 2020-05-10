@@ -28,5 +28,10 @@ export const QuestionnaireSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  completionTime: {
+    type: Array,
+    required: true,
+  },
+
 
 });

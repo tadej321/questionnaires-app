@@ -6,6 +6,7 @@ import config from './config/keys';
 import {UsersModule} from './api/authentication/users.module';
 import {UsersService} from './api/authentication/users.service';
 import {QuestionnaireModule} from './api/questionnaire/questionnaire.module';
+import {QuestionnaireGateway} from './api/questionnaire/questionnaire.gateway';
 
 @Module({
   imports: [

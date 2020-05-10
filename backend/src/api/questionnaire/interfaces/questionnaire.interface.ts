@@ -8,6 +8,7 @@ export interface Questionnaire {
   dateModified: Date;
   completed: string[];
   published: boolean;
+  completionTime: number[];
   _id?: string;
 
 }
