@@ -47,4 +47,9 @@ export class QuestionnaireListComponent implements OnInit {
   onRemoveQuestionnaire(id) {
     this.store.dispatch(new QuestionnaireActions.DeleteQuestionnaire(id));
   }
+
+  getFormattedDate(dateModified: Date) {
+    const date = new Date(dateModified);
+    return date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+  }
 }
