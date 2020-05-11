@@ -19,7 +19,9 @@ To start the project:
 ## Testing the app
 
 To fully test all of the app features follow these instructions.
-###Admin:
+
+###Admin
+
  1. Got to signup and create a new admin user. Make sure you have selected the admin role on the top right of the screen.
  2. Login with the admin account.
  3. Create a new questionnaire and click on it. This will transfer you to the questions tab where you can edit the questionnaire.
@@ -31,7 +33,8 @@ To fully test all of the app features follow these instructions.
     Other admins will be blocked from editing the same questionnaire. If you close the questionnaire with the editing admin,
     It will automatically transfer the edit privilege to the next admin who has the questionnaire opened.
  
-###User:
+###User
+
  1. Create a new user account. Make sure you have selected the user role on the top right of the screen.
  2. Make sure you have shared the questionnaire with this user.
  3. If so you will see the questionnaire, open it and answer the questions.
