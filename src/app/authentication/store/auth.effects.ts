@@ -127,6 +127,47 @@ export class AuthEffects {
     })
   );
 
+  @Effect()
+  autoLogin = this.actions$.pipe(
+    ofType(AuthActions.AUTO_LOGIN),
+    map(() => {
+      const userData: {
+        email: string;
+        id: string;
+        _token: string;
+        isAdmin: boolean;
+        _tokenExpirationDate: string;
+      } = JSON.parse(localStorage.getItem('userData'));
+      if (!userData) {
+        return { type: 'DUMMY' };
+      }
+
+      const loadedUser = new User(
+        userData.email,
+        userData.id,
+        userData._token,
+        new Date(userData._tokenExpirationDate),
+        userData.isAdmin,
+      );
+
+      if (loadedUser.token) {
+        const expirationDuration =
+          new Date(userData._tokenExpirationDate).getTime() -
+          new Date().getTime();
+        this.authService.setLogoutTimer(expirationDuration);
+        return new AuthActions.AuthenticateSuccess({
+          email: loadedUser.email,
+          userId: loadedUser.id,
+          token: loadedUser.token,
+          isAdmin: loadedUser.isAdmin,
+          expirationDate: new Date(userData._tokenExpirationDate),
+          redirect: false
+        });
+      }
+      return { type: 'DUMMY' };
+    })
+  );
+
   @Effect({ dispatch: false })
   authRedirect = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
@@ -135,6 +176,7 @@ export class AuthEffects {
         this.webSocketService.initSocket();
       }
       if (authSuccessAction.payload.redirect) {
+        console.log("OK");
         this.router.navigate(['/desktop/list']);
       }
     })

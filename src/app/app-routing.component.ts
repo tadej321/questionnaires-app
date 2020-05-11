@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {DesktopComponent} from './desktop/desktop.component';
 import {AuthGuard} from './authentication/auth-guard';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () => import('./authentication/auth.module').then(m => m.AuthModule)
+    path: '',
+    redirectTo: 'desktop/list',
+    pathMatch: 'full'
   },
   {
     path: 'desktop',
@@ -15,16 +16,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '',
-    redirectTo: 'desktop/list',
-    pathMatch: 'full'
+    path: 'auth',
+    loadChildren: () => import('./authentication/auth.module').then(m => m.AuthModule)
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    onSameUrlNavigation: 'reload'
-  })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule],
   providers: []
 })

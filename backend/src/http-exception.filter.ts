@@ -22,7 +22,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             timestamp: new Date().toLocaleDateString(),
             path: request.url,
             method: request.method,
-            message: exception.message.error || exception.message || null,
+            message: exception.message || exception.message || null,
         };
 
         response.status(status).json(errorResponse);

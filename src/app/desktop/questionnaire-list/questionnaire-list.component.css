@@ -2,9 +2,14 @@
   border-bottom: 1px solid #D3D3D3;
 }
 
-p {
+h5 {
   margin: 0;
-  color: #0077e6;
+  color: white;
+}
+
+h6 {
+  margin-top: 15px;
+  color: grey;
 }
 
 table {

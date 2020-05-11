@@ -20,7 +20,9 @@
             <div class="table">
               <div class="table-cell">
                 <button (click)="redirect(questionnaire._id)" class="open-button">
-                  {{questionnaire.title}}
+                  <h4>{{questionnaire.title}}</h4>
+                  <h5>{{questionnaire.completed.length}} responses</h5>
+                  <h6>{{getFormattedDate(questionnaire.dateModified)}}</h6>
                 </button>
                 <button *ngIf="isAdmin" (click)="onRemoveQuestionnaire(questionnaire._id)" class="remove-button">
                   X
